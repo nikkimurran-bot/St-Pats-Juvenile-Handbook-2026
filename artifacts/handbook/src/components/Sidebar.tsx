@@ -26,6 +26,8 @@ export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobil
     if (mobile && onClose) onClose();
   };
 
+  const checklistsActive = activeSectionId === 's6' && activeSubsectionId === '6-2';
+
   return (
     <nav
       data-testid="sidebar"
@@ -38,15 +40,41 @@ export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobil
         <p className="text-white/40 text-xs uppercase tracking-widest font-semibold">Contents</p>
       </div>
 
+      {/* Pinned: Checklists tab */}
+      <div className="px-3 pt-3 pb-1 flex-shrink-0">
+        <button
+          data-testid="nav-checklists-tab"
+          onClick={() => handleNav('s6', '6-2')}
+          className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition-all ${
+            checklistsActive
+              ? 'bg-secondary shadow-md'
+              : 'bg-secondary/15 hover:bg-secondary/25'
+          }`}
+        >
+          <ClipboardList size={15} className={checklistsActive ? 'text-white flex-shrink-0' : 'text-secondary flex-shrink-0'} />
+          <span className={`text-sm font-semibold ${checklistsActive ? 'text-white' : 'text-secondary'}`}>
+            Mentor Checklists
+          </span>
+          <span className={`ml-auto text-xs font-bold px-1.5 py-0.5 rounded-full ${
+            checklistsActive ? 'bg-white/20 text-white' : 'bg-secondary/20 text-secondary'
+          }`}>
+            {checklists.length}
+          </span>
+        </button>
+      </div>
+
+      <div className="px-3 pb-2 flex-shrink-0">
+        <div className="border-t border-white/10 pt-2" />
+      </div>
+
       {/* Nav items */}
-      <div className="flex-1 overflow-y-auto sidebar-scroll py-2">
+      <div className="flex-1 overflow-y-auto sidebar-scroll py-1">
         {sections.map(section => {
           const isActive = section.id === activeSectionId;
-          const isSpecial = section.id === 's6'; // Resources section — has special sub-items
+          const isSpecial = section.id === 's6';
 
           return (
             <div key={section.id} className="mb-1">
-              {/* Section header (click to navigate to first subsection) */}
               <button
                 data-testid={`nav-section-${section.id}`}
                 onClick={() => handleNav(section.id, section.subsections[0].id)}
@@ -71,13 +99,11 @@ export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobil
                 />
               </button>
 
-              {/* Subsections when this section is active */}
               {isActive && (
                 <div className="pb-1">
                   {section.subsections.map(sub => {
                     const subIsActive = sub.id === activeSubsectionId;
 
-                    // Special cards for Section 6
                     if (isSpecial && sub.id === '6-2') {
                       return (
                         <button

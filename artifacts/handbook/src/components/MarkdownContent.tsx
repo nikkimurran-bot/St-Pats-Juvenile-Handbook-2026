@@ -11,10 +11,38 @@ function highlightText(text: string, query: string): string {
   return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark class="bg-yellow-200 text-yellow-900 rounded px-0.5">$1</mark>');
 }
 
+const LINK_CLASS = 'text-secondary underline underline-offset-2 font-medium hover:text-secondary/70 transition-colors';
+
+function renderInline(text: string): string {
+  return text
+    // URLs with protocol (https://...)
+    .replace(/\bhttps?:\/\/[^\s<>"']+/gi, url =>
+      `<a href="${url}" target="_blank" rel="noopener noreferrer" class="${LINK_CLASS}">${url}</a>`)
+    // Bare domains (word.ie, sub.word.com, etc.)
+    .replace(/\b((?:[a-z0-9][a-z0-9-]*\.)+(?:ie|com|org|net|eu|gaa))(?:\/[^\s<>"']*)?/gi, (match, domain) => {
+      const href = `https://${match}`;
+      return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="${LINK_CLASS}">${match}</a>`;
+    })
+    // @handles (Twitter/X)
+    .replace(/@([A-Za-z0-9_]+)/g, (match, handle) =>
+      `<a href="https://x.com/${handle}" target="_blank" rel="noopener noreferrer" class="${LINK_CLASS}">${match}</a>`)
+    // Bold
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-primary">$1</strong>')
+    // Italic
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Inline code
+    .replace(/`(.+?)`/g, '<code class="bg-muted px-1 py-0.5 rounded text-xs font-mono">$1</code>');
+}
+
 export function MarkdownContent({ content, highlight }: Props) {
   const lines = content.split('\n');
   const elements: JSX.Element[] = [];
   let i = 0;
+
+  const render = (text: string) => {
+    const html = renderInline(text);
+    return highlight ? highlightText(html, highlight) : html;
+  };
 
   while (i < lines.length) {
     const line = lines[i];
@@ -24,7 +52,7 @@ export function MarkdownContent({ content, highlight }: Props) {
       const text = line.slice(2);
       elements.push(
         <h1 key={i} className="text-3xl font-bold text-primary mt-2 mb-4 pb-3 border-b-2 border-secondary">
-          {highlight ? <span dangerouslySetInnerHTML={{ __html: highlightText(text, highlight) }} /> : text}
+          <span dangerouslySetInnerHTML={{ __html: render(text) }} />
         </h1>
       );
       i++;
@@ -37,7 +65,7 @@ export function MarkdownContent({ content, highlight }: Props) {
       elements.push(
         <h2 key={i} className="text-xl font-semibold text-primary mt-8 mb-3 flex items-center gap-2">
           <span className="w-1 h-6 bg-secondary rounded-full flex-shrink-0" />
-          {highlight ? <span dangerouslySetInnerHTML={{ __html: highlightText(text, highlight) }} /> : text}
+          <span dangerouslySetInnerHTML={{ __html: render(text) }} />
         </h2>
       );
       i++;
@@ -49,7 +77,7 @@ export function MarkdownContent({ content, highlight }: Props) {
       const text = line.slice(4);
       elements.push(
         <h3 key={i} className="text-base font-semibold text-foreground mt-5 mb-2">
-          {highlight ? <span dangerouslySetInnerHTML={{ __html: highlightText(text, highlight) }} /> : text}
+          <span dangerouslySetInnerHTML={{ __html: render(text) }} />
         </h3>
       );
       i++;
@@ -74,7 +102,7 @@ export function MarkdownContent({ content, highlight }: Props) {
                 <tr className="bg-primary text-primary-foreground">
                   {headers.map((h, idx) => (
                     <th key={idx} className="px-4 py-3 text-left font-semibold">
-                      {highlight ? <span dangerouslySetInnerHTML={{ __html: highlightText(h, highlight) }} /> : h}
+                      <span dangerouslySetInnerHTML={{ __html: render(h) }} />
                     </th>
                   ))}
                 </tr>
@@ -86,7 +114,7 @@ export function MarkdownContent({ content, highlight }: Props) {
                     <tr key={ridx} className={ridx % 2 === 0 ? 'bg-white' : 'bg-muted/40'}>
                       {cells.map((cell, cidx) => (
                         <td key={cidx} className="px-4 py-2.5 border-t border-border text-foreground">
-                          {highlight ? <span dangerouslySetInnerHTML={{ __html: highlightText(cell, highlight) }} /> : cell}
+                          <span dangerouslySetInnerHTML={{ __html: render(cell) }} />
                         </td>
                       ))}
                     </tr>
@@ -106,11 +134,33 @@ export function MarkdownContent({ content, highlight }: Props) {
       elements.push(
         <blockquote key={i} className="border-l-4 border-secondary bg-secondary/10 px-5 py-3 my-4 rounded-r-lg">
           <p className="text-foreground text-sm italic">
-            {highlight ? <span dangerouslySetInnerHTML={{ __html: highlightText(text, highlight) }} /> : text}
+            <span dangerouslySetInnerHTML={{ __html: render(text) }} />
           </p>
         </blockquote>
       );
       i++;
+      continue;
+    }
+
+    // Ordered list — collect consecutive numbered lines
+    if (/^\d+\.\s/.test(line)) {
+      const items: string[] = [];
+      while (i < lines.length && /^\d+\.\s/.test(lines[i])) {
+        items.push(lines[i].replace(/^\d+\.\s/, ''));
+        i++;
+      }
+      elements.push(
+        <ol key={`ol-${i}`} className="my-3 space-y-1.5 pl-2 list-none">
+          {items.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2.5 text-foreground">
+              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center mt-0.5">
+                {idx + 1}
+              </span>
+              <span className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: render(item) }} />
+            </li>
+          ))}
+        </ol>
+      );
       continue;
     }
 
@@ -126,7 +176,7 @@ export function MarkdownContent({ content, highlight }: Props) {
           {items.map((item, idx) => (
             <li key={idx} className="flex items-start gap-2 text-foreground">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-secondary flex-shrink-0" />
-              <span className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: highlight ? highlightText(renderInline(item), highlight) : renderInline(item) }} />
+              <span className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: render(item) }} />
             </li>
           ))}
         </ul>
@@ -141,21 +191,13 @@ export function MarkdownContent({ content, highlight }: Props) {
     }
 
     // Regular paragraph
-    const rendered = renderInline(line);
     elements.push(
       <p key={i} className="text-sm leading-relaxed text-foreground my-2">
-        <span dangerouslySetInnerHTML={{ __html: highlight ? highlightText(rendered, highlight) : rendered }} />
+        <span dangerouslySetInnerHTML={{ __html: render(line) }} />
       </p>
     );
     i++;
   }
 
   return <div className="max-w-none">{elements}</div>;
-}
-
-function renderInline(text: string): string {
-  return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-primary">$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/`(.+?)`/g, '<code class="bg-muted px-1 py-0.5 rounded text-xs font-mono">$1</code>');
 }

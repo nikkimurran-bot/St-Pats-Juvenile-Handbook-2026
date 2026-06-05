@@ -1,30 +1,55 @@
 import { useState } from "react";
 import { checklists } from "../data/checklists";
 import { useChecklist } from "../hooks/useChecklist";
-import { CheckSquare, Square, RotateCcw, ChevronDown, ChevronUp } from "lucide-react";
+import { CheckSquare, Square, RotateCcw, ChevronDown, ChevronUp, Printer } from "lucide-react";
 
 export function ChecklistsPage() {
   const { checked, toggle, resetChecklist, getProgress } = useChecklist();
   const [expanded, setExpanded] = useState<string | null>(checklists[0].id);
+  const [printMode, setPrintMode] = useState(false);
 
   const allItemIds = (checklistId: string) => {
     const cl = checklists.find(c => c.id === checklistId);
     return cl?.sections.flatMap(s => s.items.map(i => i.id)) ?? [];
   };
 
+  const handlePrint = () => {
+    setPrintMode(true);
+    setTimeout(() => {
+      window.print();
+      setPrintMode(false);
+    }, 250);
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--app-font-serif)' }}>
-          Mentor Checklists
-        </h1>
-        <p className="text-muted-foreground text-sm">
-          10 interactive checklists to help you stay prepared throughout the season. Progress is saved automatically on this device.
-        </p>
+      {/* Page header */}
+      <div className="mb-8 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--app-font-serif)' }}>
+            Mentor Checklists
+          </h1>
+          <p className="text-muted-foreground text-sm">
+            10 interactive checklists to help you stay prepared throughout the season. Progress is saved automatically on this device.
+          </p>
+        </div>
+        <button
+          onClick={handlePrint}
+          className="no-print flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm"
+        >
+          <Printer size={15} />
+          Print
+        </button>
+      </div>
+
+      {/* Print header (only shows when printing) */}
+      <div className="hidden print:block mb-8">
+        <h1 className="text-2xl font-bold text-black">St Pats Donabate GAA — Mentor Checklists 2026</h1>
+        <p className="text-sm text-gray-600 mt-1">Printed from the St Pats Juvenile Handbook 2026</p>
       </div>
 
       {/* Summary cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
+      <div className="no-print grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
         {checklists.map(cl => {
           const ids = allItemIds(cl.id);
           const { done, total, pct } = getProgress(ids);
@@ -56,7 +81,7 @@ export function ChecklistsPage() {
       {/* Expanded checklists */}
       <div className="space-y-4">
         {checklists.map(cl => {
-          const isOpen = expanded === cl.id;
+          const isOpen = expanded === cl.id || printMode;
           const ids = allItemIds(cl.id);
           const { done, total, pct } = getProgress(ids);
 
@@ -64,20 +89,20 @@ export function ChecklistsPage() {
             <div
               key={cl.id}
               data-testid={`checklist-${cl.id}`}
-              className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden"
+              className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden print:shadow-none print:border-gray-300 print:rounded-none print:mb-4 print:break-inside-avoid"
             >
               {/* Checklist header */}
               <button
-                onClick={() => setExpanded(isOpen ? null : cl.id)}
-                className="w-full flex items-center gap-4 p-5 text-left hover:bg-muted/30 transition-colors"
+                onClick={() => !printMode && setExpanded(isOpen && !printMode ? null : cl.id)}
+                className="w-full flex items-center gap-4 p-5 text-left hover:bg-muted/30 transition-colors print:cursor-default print:hover:bg-transparent"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-                  <span className="text-secondary font-bold text-lg">{cl.number}</span>
+                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 print:w-8 print:h-8 print:rounded-lg">
+                  <span className="text-secondary font-bold text-lg print:text-sm">{cl.number}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h2 className="font-semibold text-foreground text-base">{cl.title}</h2>
-                  <p className="text-xs text-muted-foreground mt-0.5">{cl.description}</p>
-                  <div className="flex items-center gap-3 mt-2">
+                  <h2 className="font-semibold text-foreground text-base print:text-sm">{cl.title}</h2>
+                  <p className="text-xs text-muted-foreground mt-0.5 print:hidden">{cl.description}</p>
+                  <div className="flex items-center gap-3 mt-2 no-print">
                     <div className="flex-1 bg-muted rounded-full h-1.5">
                       <div
                         className="bg-secondary rounded-full h-1.5 transition-all"
@@ -89,7 +114,7 @@ export function ChecklistsPage() {
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
+                <div className="flex items-center gap-2 flex-shrink-0 no-print">
                   {done > 0 && (
                     <button
                       data-testid={`reset-checklist-${cl.id}`}
@@ -100,13 +125,16 @@ export function ChecklistsPage() {
                       <RotateCcw size={14} />
                     </button>
                   )}
-                  {isOpen ? <ChevronUp size={18} className="text-muted-foreground" /> : <ChevronDown size={18} className="text-muted-foreground" />}
+                  {isOpen
+                    ? <ChevronUp size={18} className="text-muted-foreground" />
+                    : <ChevronDown size={18} className="text-muted-foreground" />
+                  }
                 </div>
               </button>
 
               {/* Checklist body */}
               {isOpen && (
-                <div className="border-t border-border px-5 pb-5 pt-4 space-y-6">
+                <div className="border-t border-border px-5 pb-5 pt-4 space-y-6 print:pt-2 print:pb-2">
                   {cl.sections.map(sec => {
                     const secIds = sec.items.map(i => i.id);
                     const secDone = secIds.filter(id => checked[id]).length;
@@ -117,7 +145,7 @@ export function ChecklistsPage() {
                             <span className="w-4 h-0.5 bg-secondary rounded-full" />
                             {sec.title}
                           </h3>
-                          <span className="text-xs text-muted-foreground">{secDone}/{secIds.length}</span>
+                          <span className="text-xs text-muted-foreground no-print">{secDone}/{secIds.length}</span>
                         </div>
                         <div className="space-y-1.5">
                           {sec.items.map(item => {
@@ -127,18 +155,18 @@ export function ChecklistsPage() {
                                 key={item.id}
                                 data-testid={`checklist-item-${item.id}`}
                                 onClick={() => toggle(item.id)}
-                                className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all ${
+                                className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all print:rounded-none print:p-1.5 print:cursor-default ${
                                   isDone
-                                    ? 'bg-primary/5 border border-primary/15'
-                                    : 'bg-muted/40 border border-transparent hover:bg-muted hover:border-border'
+                                    ? 'bg-primary/5 border border-primary/15 print:bg-transparent print:border-transparent'
+                                    : 'bg-muted/40 border border-transparent hover:bg-muted hover:border-border print:bg-transparent'
                                 }`}
                               >
                                 {isDone ? (
-                                  <CheckSquare size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                                  <CheckSquare size={18} className="text-primary flex-shrink-0 mt-0.5 print:text-black" />
                                 ) : (
-                                  <Square size={18} className="text-muted-foreground flex-shrink-0 mt-0.5" />
+                                  <Square size={18} className="text-muted-foreground flex-shrink-0 mt-0.5 print:text-gray-400" />
                                 )}
-                                <span className={`text-sm leading-relaxed ${isDone ? 'text-primary/60 line-through' : 'text-foreground'}`}>
+                                <span className={`text-sm leading-relaxed print:text-xs print:text-black ${isDone ? 'text-primary/60 line-through print:no-underline print:line-through' : 'text-foreground'}`}>
                                   {item.text}
                                 </span>
                               </button>
@@ -149,8 +177,8 @@ export function ChecklistsPage() {
                     );
                   })}
 
-                  {pct === 100 && (
-                    <div className="bg-primary/5 border border-primary/15 rounded-xl p-4 text-center">
+                  {pct === 100 && !printMode && (
+                    <div className="bg-primary/5 border border-primary/15 rounded-xl p-4 text-center no-print">
                       <p className="text-primary font-semibold text-sm">✓ Checklist complete!</p>
                       <p className="text-primary/60 text-xs mt-0.5">All items checked for {cl.title}.</p>
                     </div>

@@ -192,3 +192,54 @@
   .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
   .border.active-elevate-2:not(.no-active-interaction-elevate)::after { inset: -1px; }
 }
+
+@media print {
+  /* Hide navigation, header, search, and any no-print elements */
+  header,
+  aside,
+  nav[aria-label="Handbook navigation"],
+  .no-print {
+    display: none !important;
+  }
+
+  /* Remove sidebar margin so content fills the page */
+  main, [class*="ml-"] {
+    margin-left: 0 !important;
+    padding: 0 1rem !important;
+  }
+
+  /* Reset backgrounds/shadows for cleaner print */
+  body, html {
+    background: white !important;
+  }
+
+  /* Checklist card adjustments */
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+  .print\:border-gray-300 {
+    border-color: #d1d5db !important;
+  }
+  .print\:rounded-none {
+    border-radius: 0 !important;
+  }
+  .print\:break-inside-avoid {
+    break-inside: avoid !important;
+  }
+  .print\:mb-4 {
+    margin-bottom: 1rem !important;
+  }
+
+  /* Show print-only elements */
+  .print\:block {
+    display: block !important;
+  }
+  .hidden.print\:block {
+    display: block !important;
+  }
+
+  /* Force checklist body visible (no accordion collapse) */
+  .print\:cursor-default {
+    cursor: default !important;
+  }
+}
