@@ -58,28 +58,27 @@ components:
     SearchResult:
       type: object
       properties:
-        sectionId:
+        section:
           type: string
-        sectionNumber:
+          description: Section identifier (e.g. "s1")
+        subsection:
           type: string
-        sectionTitle:
+          description: Subsection identifier (e.g. "1-1")
+        title:
           type: string
-        subsectionId:
-          type: string
-        subsectionNumber:
-          type: string
-        subsectionTitle:
-          type: string
+          description: Subsection title
         excerpt:
           type: string
+          description: Content excerpt with match context
+        anchor:
+          type: string
+          description: Navigation anchor combining section and subsection (e.g. "s1/1-1")
       required:
-        - sectionId
-        - sectionNumber
-        - sectionTitle
-        - subsectionId
-        - subsectionNumber
-        - subsectionTitle
+        - section
+        - subsection
+        - title
         - excerpt
+        - anchor
     SearchResponse:
       type: object
       properties:
@@ -92,4 +91,3 @@ components:
       required:
         - query
         - results
-

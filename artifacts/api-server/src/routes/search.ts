@@ -14,13 +14,11 @@ router.get("/search", (req, res) => {
   const lower = q.toLowerCase();
   const seen = new Set<string>();
   const results: Array<{
-    sectionId: string;
-    sectionNumber: string;
-    sectionTitle: string;
-    subsectionId: string;
-    subsectionNumber: string;
-    subsectionTitle: string;
+    section: string;
+    subsection: string;
+    title: string;
     excerpt: string;
+    anchor: string;
   }> = [];
 
   for (const entry of searchIndex) {
@@ -32,16 +30,17 @@ router.get("/search", (req, res) => {
     const idx = haystack.indexOf(lower);
     const start = Math.max(0, idx - 80);
     const end = Math.min(entry.text.length, idx + 160);
-    const excerpt = (start > 0 ? "..." : "") + entry.text.slice(start, end).trim() + (end < entry.text.length ? "..." : "");
+    const excerpt =
+      (start > 0 ? "..." : "") +
+      entry.text.slice(start, end).trim() +
+      (end < entry.text.length ? "..." : "");
 
     results.push({
-      sectionId: entry.sectionId,
-      sectionNumber: entry.sectionNumber,
-      sectionTitle: entry.sectionTitle,
-      subsectionId: entry.subsectionId,
-      subsectionNumber: entry.subsectionNumber,
-      subsectionTitle: entry.subsectionTitle,
-      excerpt
+      section: entry.sectionId,
+      subsection: entry.subsectionId,
+      title: entry.subsectionTitle,
+      excerpt,
+      anchor: `${entry.sectionId}/${entry.subsectionId}`,
     });
 
     if (results.length >= 15) break;

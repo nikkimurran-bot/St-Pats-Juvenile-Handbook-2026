@@ -660,7 +660,7 @@ The parents meeting should take place **before the first competitive fixture**, 
 - Emergency contact and medical information process
 - Team communication channels
 
-See the **Team Parent Meeting Template** (Appendix 39) for a full agenda template.`
+See the **Team Parent Meeting Template** (Appendix 38) for a full agenda template.`
       },
       {
         id: "2-14",
@@ -2100,7 +2100,7 @@ Click **"Checklists"** in the navigation to use the interactive checklists with 
         title: "Appendices",
         content: `## Appendices
 
-The following 39 documents are available in the St Pats Juvenile Handbook 2026.
+The following 38 documents are available in the St Pats Juvenile Handbook 2026.
 
 Each appendix is referenced throughout this handbook where relevant. Click any document card to view it — uploaded documents will open for viewing; placeholder cards indicate documents pending upload.
 
@@ -2110,13 +2110,13 @@ Each appendix is referenced throughout this handbook where relevant. Click any d
 |----------|-----------|
 | Regulations & Rules | CCC1 & CCC2 regs, LGFA & Camogie guides, Go Games rules, Féile rules |
 | Safeguarding & Welfare | Child Safeguarding Statement, GAA Code of Best Practice |
-| Club Policies | Playing policy, gear order form, logo |
+| Club Policies | Playing policy, gear order form |
 | Coaching Resources | LTAD cheat sheet, Go Games activities, skills workshops, nursery resources |
 | Player Development | Skills charts (Football, Hurling, Camogie, LGFA), LGFA development guidebook |
 | Health & Wellbeing | Healthy eating guides for coaches and parents |
 | Planning & Templates | Session planners, annual calendars, parent meeting template, six-week blocks |
 
-Use the **Appendices** tab in the navigation to browse all 39 documents.`
+Use the **Appendices** tab in the navigation to browse all 38 documents.`
       }
     ]
   }

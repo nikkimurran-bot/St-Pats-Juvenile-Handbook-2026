@@ -19,13 +19,11 @@ export const SearchHandbookQueryParams = zod.object({
 export const SearchHandbookResponse = zod.object({
   "query": zod.string(),
   "results": zod.array(zod.object({
-  "sectionId": zod.string(),
-  "sectionNumber": zod.string(),
-  "sectionTitle": zod.string(),
-  "subsectionId": zod.string(),
-  "subsectionNumber": zod.string(),
-  "subsectionTitle": zod.string(),
-  "excerpt": zod.string()
+  "section": zod.string().describe('Section identifier (e.g. \"s1\")'),
+  "subsection": zod.string().describe('Subsection identifier (e.g. \"1-1\")'),
+  "title": zod.string().describe('Subsection title'),
+  "excerpt": zod.string().describe('Content excerpt with match context'),
+  "anchor": zod.string().describe('Navigation anchor combining section and subsection (e.g. \"s1\/1-1\")')
 }))
 })
 

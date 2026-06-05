@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useSearchHandbook, type SearchResult } from "@workspace/api-client-react";
+import { useQuery } from "@tanstack/react-query";
+import { getSearchHandbookQueryOptions } from "@workspace/api-client-react";
+import type { SearchResult } from "@workspace/api-client-react";
 import { Search, X, ArrowRight, BookOpen, Loader2 } from "lucide-react";
 
 interface Props {
@@ -29,20 +31,19 @@ export function SearchModal({ open, onClose, onNavigate }: Props) {
     return () => clearTimeout(timer);
   }, [query]);
 
-  const { data, isFetching } = useSearchHandbook(
-    { q: debouncedQuery },
-    {
-      query: {
-        enabled: debouncedQuery.length >= 2,
-        placeholderData: (prev: typeof data) => prev,
-      },
-    }
-  );
+  const enabled = debouncedQuery.length >= 2;
+  const { data, isFetching } = useQuery({
+    ...getSearchHandbookQueryOptions({ q: debouncedQuery }),
+    enabled,
+  });
 
   const results = data?.results ?? [];
 
-  const handleSelect = useCallback((sectionId: string, subsectionId: string) => {
-    onNavigate(sectionId, subsectionId, debouncedQuery);
+  const handleSelect = useCallback((anchor: string) => {
+    const [sectionId, subsectionId] = anchor.split("/");
+    if (sectionId && subsectionId) {
+      onNavigate(sectionId, subsectionId, debouncedQuery);
+    }
     onClose();
     setQuery("");
   }, [onNavigate, onClose, debouncedQuery]);
@@ -116,7 +117,7 @@ export function SearchModal({ open, onClose, onNavigate }: Props) {
                 <button
                   key={idx}
                   data-testid={`search-result-${idx}`}
-                  onClick={() => handleSelect(r.sectionId, r.subsectionId)}
+                  onClick={() => handleSelect(r.anchor)}
                   className="w-full flex items-start gap-4 px-5 py-3 hover:bg-muted/50 transition-colors text-left group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -124,10 +125,10 @@ export function SearchModal({ open, onClose, onNavigate }: Props) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
-                      <span className="text-xs font-bold text-secondary">{r.subsectionNumber}</span>
-                      <span className="text-sm font-semibold text-foreground truncate">{r.subsectionTitle}</span>
+                      <span className="text-xs font-bold text-secondary">{r.subsection}</span>
+                      <span className="text-sm font-semibold text-foreground truncate">{r.title}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground mb-1">Section {r.sectionNumber} — {r.sectionTitle}</p>
+                    <p className="text-xs text-muted-foreground mb-1">Section {r.section}</p>
                     <p className="text-xs text-foreground/70 line-clamp-2 leading-relaxed">{r.excerpt}</p>
                   </div>
                   <ArrowRight size={14} className="text-muted-foreground flex-shrink-0 mt-1.5 group-hover:text-primary transition-colors" />

@@ -7,11 +7,14 @@
  */
 
 export interface SearchResult {
-  sectionId: string;
-  sectionNumber: string;
-  sectionTitle: string;
-  subsectionId: string;
-  subsectionNumber: string;
-  subsectionTitle: string;
+  /** Section identifier (e.g. "s1") */
+  section: string;
+  /** Subsection identifier (e.g. "1-1") */
+  subsection: string;
+  /** Subsection title */
+  title: string;
+  /** Content excerpt with match context */
   excerpt: string;
+  /** Navigation anchor combining section and subsection (e.g. "s1/1-1") */
+  anchor: string;
 }
