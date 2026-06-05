@@ -10,7 +10,29 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: search
+    description: Handbook search
 paths:
+  /search:
+    get:
+      operationId: searchHandbook
+      tags: [search]
+      summary: Search handbook content
+      description: Full-text search across all handbook sections and subsections
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Search query (minimum 2 characters)
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
   /healthz:
     get:
       operationId: healthCheck
@@ -33,4 +55,41 @@ components:
           type: string
       required:
         - status
+    SearchResult:
+      type: object
+      properties:
+        sectionId:
+          type: string
+        sectionNumber:
+          type: string
+        sectionTitle:
+          type: string
+        subsectionId:
+          type: string
+        subsectionNumber:
+          type: string
+        subsectionTitle:
+          type: string
+        excerpt:
+          type: string
+      required:
+        - sectionId
+        - sectionNumber
+        - sectionTitle
+        - subsectionId
+        - subsectionNumber
+        - subsectionTitle
+        - excerpt
+    SearchResponse:
+      type: object
+      properties:
+        query:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchResult"
+      required:
+        - query
+        - results
 

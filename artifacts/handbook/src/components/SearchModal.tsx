@@ -1,39 +1,51 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { searchContent } from "../data/sections";
-import { Search, X, ArrowRight, BookOpen } from "lucide-react";
+import { useSearchHandbook, type SearchResult } from "@workspace/api-client-react";
+import { Search, X, ArrowRight, BookOpen, Loader2 } from "lucide-react";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  onNavigate: (sectionId: string, subsectionId: string) => void;
+  onNavigate: (sectionId: string, subsectionId: string, highlight: string) => void;
 }
 
 export function SearchModal({ open, onClose, onNavigate }: Props) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<ReturnType<typeof searchContent>>([]);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) {
       setTimeout(() => inputRef.current?.focus(), 50);
       setQuery("");
-      setResults([]);
+      setDebouncedQuery("");
     }
   }, [open]);
 
+  // Debounce the search query
   useEffect(() => {
-    if (query.length >= 2) {
-      setResults(searchContent(query));
-    } else {
-      setResults([]);
-    }
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 250);
+    return () => clearTimeout(timer);
   }, [query]);
 
+  const { data, isFetching } = useSearchHandbook(
+    { q: debouncedQuery },
+    {
+      query: {
+        enabled: debouncedQuery.length >= 2,
+        placeholderData: (prev: typeof data) => prev,
+      },
+    }
+  );
+
+  const results = data?.results ?? [];
+
   const handleSelect = useCallback((sectionId: string, subsectionId: string) => {
-    onNavigate(sectionId, subsectionId);
+    onNavigate(sectionId, subsectionId, debouncedQuery);
     onClose();
     setQuery("");
-  }, [onNavigate, onClose]);
+  }, [onNavigate, onClose, debouncedQuery]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -66,7 +78,11 @@ export function SearchModal({ open, onClose, onNavigate }: Props) {
       >
         {/* Search input */}
         <div className="flex items-center gap-3 px-5 py-4 border-b border-border">
-          <Search size={20} className="text-primary flex-shrink-0" />
+          {isFetching ? (
+            <Loader2 size={20} className="text-primary flex-shrink-0 animate-spin" />
+          ) : (
+            <Search size={20} className="text-primary flex-shrink-0" />
+          )}
           <input
             ref={inputRef}
             data-testid="search-input"
@@ -77,7 +93,7 @@ export function SearchModal({ open, onClose, onNavigate }: Props) {
             className="flex-1 text-base outline-none text-foreground placeholder:text-muted-foreground bg-transparent"
           />
           {query && (
-            <button onClick={() => { setQuery(""); setResults([]); }} className="p-1 rounded-md hover:bg-muted text-muted-foreground">
+            <button onClick={() => { setQuery(""); setDebouncedQuery(""); }} className="p-1 rounded-md hover:bg-muted text-muted-foreground">
               <X size={16} />
             </button>
           )}
@@ -96,7 +112,7 @@ export function SearchModal({ open, onClose, onNavigate }: Props) {
               <p className="text-xs text-muted-foreground px-5 py-1.5 font-medium uppercase tracking-wider">
                 {results.length} result{results.length !== 1 ? 's' : ''}
               </p>
-              {results.map((r, idx) => (
+              {results.map((r: SearchResult, idx: number) => (
                 <button
                   key={idx}
                   data-testid={`search-result-${idx}`}
@@ -120,15 +136,15 @@ export function SearchModal({ open, onClose, onNavigate }: Props) {
             </div>
           )}
 
-          {query.length >= 2 && results.length === 0 && (
+          {debouncedQuery.length >= 2 && !isFetching && results.length === 0 && (
             <div className="px-5 py-12 text-center">
               <Search size={32} className="mx-auto text-muted-foreground/40 mb-3" />
-              <p className="text-muted-foreground font-medium">No results for "{query}"</p>
+              <p className="text-muted-foreground font-medium">No results for "{debouncedQuery}"</p>
               <p className="text-sm text-muted-foreground/60 mt-1">Try a different search term</p>
             </div>
           )}
 
-          {query.length < 2 && (
+          {debouncedQuery.length < 2 && (
             <div className="px-5 py-10 text-center">
               <Search size={32} className="mx-auto text-muted-foreground/30 mb-3" />
               <p className="text-sm text-muted-foreground">Type at least 2 characters to search</p>

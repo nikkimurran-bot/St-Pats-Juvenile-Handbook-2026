@@ -11,18 +11,25 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export function HandbookPage() {
   const [activeSectionId, setActiveSectionId] = useState(sections[0].id);
   const [activeSubsectionId, setActiveSubsectionId] = useState(sections[0].subsections[0].id);
+  const [highlightQuery, setHighlightQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const activeSection = sections.find(s => s.id === activeSectionId) ?? sections[0];
   const activeSubsection = activeSection.subsections.find(s => s.id === activeSubsectionId) ?? activeSection.subsections[0];
 
-  const navigate = useCallback((sectionId: string, subsectionId: string) => {
+  const navigate = useCallback((sectionId: string, subsectionId: string, highlight?: string) => {
     setActiveSectionId(sectionId);
     setActiveSubsectionId(subsectionId);
+    setHighlightQuery(highlight ?? "");
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setMobileMenuOpen(false);
   }, []);
+
+  // Clear highlight when navigating without search
+  const navigatePlain = useCallback((sectionId: string, subsectionId: string) => {
+    navigate(sectionId, subsectionId, "");
+  }, [navigate]);
 
   // Flat list of all subsections for prev/next
   const allSubs = sections.flatMap(s => s.subsections.map(sub => ({ sectionId: s.id, subsectionId: sub.id })));
@@ -69,7 +76,7 @@ export function HandbookPage() {
             <Sidebar
               activeSectionId={activeSectionId}
               activeSubsectionId={activeSubsectionId}
-              onNavigate={navigate}
+              onNavigate={navigatePlain}
               mobile
               onClose={() => setMobileMenuOpen(false)}
             />
@@ -85,7 +92,7 @@ export function HandbookPage() {
             <Sidebar
               activeSectionId={activeSectionId}
               activeSubsectionId={activeSubsectionId}
-              onNavigate={navigate}
+              onNavigate={navigatePlain}
             />
           </div>
         </aside>
@@ -100,6 +107,15 @@ export function HandbookPage() {
             <span className="font-medium text-primary">Section {activeSection.number}</span>
             <ChevronRight size={12} />
             <span className="font-medium text-foreground truncate">{activeSubsection.title}</span>
+            {highlightQuery && (
+              <span className="ml-auto flex items-center gap-1.5 bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full text-xs">
+                Highlighting: "{highlightQuery}"
+                <button
+                  onClick={() => setHighlightQuery("")}
+                  className="hover:text-yellow-600 font-bold leading-none"
+                >×</button>
+              </span>
+            )}
           </div>
 
           {/* Content area */}
@@ -125,13 +141,13 @@ export function HandbookPage() {
                   </div>
                 </div>
 
-                {/* Sub-section tabs (small screen pill-tabs, large screen horizontal) */}
+                {/* Sub-section tabs */}
                 <div className="flex gap-1.5 flex-wrap mb-7">
                   {activeSection.subsections.map(sub => (
                     <button
                       key={sub.id}
                       data-testid={`tab-${sub.id}`}
-                      onClick={() => navigate(activeSectionId, sub.id)}
+                      onClick={() => navigatePlain(activeSectionId, sub.id)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                         sub.id === activeSubsectionId
                           ? 'bg-primary text-primary-foreground shadow-sm'
@@ -145,7 +161,7 @@ export function HandbookPage() {
 
                 {/* Markdown body */}
                 <div className="bg-white rounded-2xl border border-border shadow-sm p-6 md:p-8">
-                  <MarkdownContent content={activeSubsection.content} />
+                  <MarkdownContent content={activeSubsection.content} highlight={highlightQuery} />
                 </div>
               </div>
             )}
@@ -155,7 +171,7 @@ export function HandbookPage() {
               {prevSub && prevSubsection && prevSection ? (
                 <button
                   data-testid="prev-button"
-                  onClick={() => navigate(prevSub.sectionId, prevSub.subsectionId)}
+                  onClick={() => navigatePlain(prevSub.sectionId, prevSub.subsectionId)}
                   className="flex-1 flex items-center gap-3 bg-white border border-border rounded-xl px-4 py-3 hover:border-primary/40 hover:shadow-sm transition-all text-left group"
                 >
                   <ChevronLeft size={18} className="text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors" />
@@ -171,7 +187,7 @@ export function HandbookPage() {
               {nextSub && nextSubsection && nextSection ? (
                 <button
                   data-testid="next-button"
-                  onClick={() => navigate(nextSub.sectionId, nextSub.subsectionId)}
+                  onClick={() => navigatePlain(nextSub.sectionId, nextSub.subsectionId)}
                   className="flex-1 flex items-center gap-3 bg-white border border-border rounded-xl px-4 py-3 hover:border-primary/40 hover:shadow-sm transition-all text-right justify-end group"
                 >
                   <div className="min-w-0">

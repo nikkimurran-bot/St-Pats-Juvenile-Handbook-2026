@@ -1,3 +1,5 @@
+import type { JSX } from "react";
+
 interface Props {
   content: string;
   highlight?: string;

@@ -5,9 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
 
 export interface SearchResult {
   sectionId: string;
@@ -18,16 +15,3 @@ export interface SearchResult {
   subsectionTitle: string;
   excerpt: string;
 }
-
-export interface SearchResponse {
-  query: string;
-  results: SearchResult[];
-}
-
-export type SearchHandbookParams = {
-/**
- * Search query (minimum 2 characters)
- */
-q: string;
-};
-

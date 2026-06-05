@@ -1,6 +1,111 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { appendices, appendixCategories } from "../data/appendices";
-import { FileText, ExternalLink, Clock, Filter } from "lucide-react";
+import { FileText, ExternalLink, Clock, Filter, CheckCircle2 } from "lucide-react";
+
+function useFileAvailable(path: string): boolean | null {
+  const [available, setAvailable] = useState<boolean | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetch(path, { method: "HEAD" })
+      .then(res => { if (!cancelled) setAvailable(res.ok); })
+      .catch(() => { if (!cancelled) setAvailable(false); });
+    return () => { cancelled = true; };
+  }, [path]);
+  return available;
+}
+
+interface AppendixCardProps {
+  appendix: typeof appendices[0];
+}
+
+function AppendixCard({ appendix }: AppendixCardProps) {
+  const pdfPath = `/appendices/${appendix.filename}`;
+  const available = useFileAvailable(pdfPath);
+
+  return (
+    <div
+      data-testid={`appendix-card-${appendix.id}`}
+      className={`bg-white rounded-xl border shadow-sm hover:shadow-md transition-all group overflow-hidden ${
+        available ? 'border-primary/20 hover:border-primary/40' : 'border-border hover:border-border'
+      }`}
+    >
+      {/* Category ribbon */}
+      <div className="px-4 pt-3 pb-2">
+        <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/20">
+          {appendix.category}
+        </span>
+      </div>
+
+      {/* Document icon + number */}
+      <div className="flex items-start gap-3 px-4 pb-3">
+        <div className={`w-10 h-12 flex-shrink-0 rounded-lg flex flex-col items-center justify-center border transition-colors ${
+          available
+            ? 'bg-primary/10 border-primary/20 group-hover:bg-primary/15'
+            : 'bg-muted/50 border-border'
+        }`}>
+          <FileText size={16} className={available ? 'text-primary' : 'text-muted-foreground'} />
+          <span className={`text-xs font-bold mt-0.5 ${available ? 'text-primary' : 'text-muted-foreground'}`}>
+            {appendix.number}
+          </span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className={`text-sm font-semibold leading-snug transition-colors line-clamp-3 ${
+            available ? 'text-foreground group-hover:text-primary' : 'text-foreground/80'
+          }`}>
+            {appendix.title}
+          </h3>
+        </div>
+      </div>
+
+      {/* Description */}
+      <div className="px-4 pb-3">
+        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+          {appendix.description}
+        </p>
+      </div>
+
+      {/* Footer */}
+      <div className="border-t border-border px-4 py-2.5 flex items-center justify-between">
+        <div className="flex items-center gap-1.5 text-xs">
+          {available === null ? (
+            <span className="text-muted-foreground">Checking...</span>
+          ) : available ? (
+            <>
+              <CheckCircle2 size={11} className="text-green-600" />
+              <span className="text-green-700 font-medium">Available</span>
+            </>
+          ) : (
+            <>
+              <Clock size={11} className="text-muted-foreground" />
+              <span className="text-muted-foreground">Pending upload</span>
+            </>
+          )}
+        </div>
+
+        {available ? (
+          <a
+            href={pdfPath}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid={`appendix-link-${appendix.id}`}
+            className="flex items-center gap-1 text-xs text-primary hover:text-primary/70 font-medium transition-colors"
+          >
+            <ExternalLink size={11} />
+            Open PDF
+          </a>
+        ) : (
+          <span
+            data-testid={`appendix-link-${appendix.id}`}
+            className="flex items-center gap-1 text-xs text-muted-foreground/50 cursor-not-allowed"
+          >
+            <ExternalLink size={11} />
+            Open
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export function AppendicesPage() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -19,7 +124,7 @@ export function AppendicesPage() {
           Appendices
         </h1>
         <p className="text-muted-foreground text-sm">
-          {appendices.length} reference documents — click any card to open an uploaded document, or see its status.
+          {appendices.length} reference documents — uploaded PDFs can be opened directly; pending documents show an upload notice.
         </p>
       </div>
 
@@ -59,66 +164,9 @@ export function AppendicesPage() {
 
       {/* Appendix cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map(appendix => {
-          const pdfPath = `/appendices/${appendix.filename}`;
-          // We assume all docs are pending upload — clicking opens in new tab if file exists
-          return (
-            <div
-              key={appendix.id}
-              data-testid={`appendix-card-${appendix.id}`}
-              className="bg-white rounded-xl border border-border shadow-sm hover:shadow-md hover:border-primary/30 transition-all group overflow-hidden"
-            >
-              {/* Category ribbon */}
-              <div className="px-4 pt-3 pb-2">
-                <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/20">
-                  {appendix.category}
-                </span>
-              </div>
-
-              {/* Document icon + number */}
-              <div className="flex items-start gap-3 px-4 pb-3">
-                <div className="w-10 h-12 flex-shrink-0 bg-primary/5 rounded-lg flex flex-col items-center justify-center border border-primary/10 group-hover:bg-primary/10 transition-colors">
-                  <FileText size={16} className="text-primary" />
-                  <span className="text-primary text-xs font-bold mt-0.5">{appendix.number}</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-sm font-semibold text-foreground leading-snug group-hover:text-primary transition-colors line-clamp-3">
-                    {appendix.title}
-                  </h3>
-                </div>
-              </div>
-
-              {/* Description */}
-              <div className="px-4 pb-3">
-                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-                  {appendix.description}
-                </p>
-              </div>
-
-              {/* Footer */}
-              <div className="border-t border-border px-4 py-2.5 flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <Clock size={11} />
-                  <span>Pending upload</span>
-                </div>
-                <a
-                  href={pdfPath}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid={`appendix-link-${appendix.id}`}
-                  className="flex items-center gap-1 text-xs text-primary/60 hover:text-primary font-medium transition-colors"
-                  onClick={e => {
-                    // Check if we should prevent default (file doesn't exist)
-                    // In practice, the browser will show 404 if it doesn't exist
-                  }}
-                >
-                  <ExternalLink size={11} />
-                  Open
-                </a>
-              </div>
-            </div>
-          );
-        })}
+        {filtered.map(appendix => (
+          <AppendixCard key={appendix.id} appendix={appendix} />
+        ))}
       </div>
 
       {filtered.length === 0 && (
@@ -134,7 +182,7 @@ export function AppendicesPage() {
           <code className="bg-white px-1 py-0.5 rounded text-xs font-mono border border-border">
             public/appendices/
           </code>{' '}
-          folder using the file names shown. Documents will become immediately accessible.
+          folder using the exact filenames shown on each card. Uploaded documents will be automatically detected and available to open.
         </p>
       </div>
     </div>

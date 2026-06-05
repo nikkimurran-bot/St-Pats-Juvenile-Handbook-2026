@@ -1,7 +1,21 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HandbookPage } from "./pages/HandbookPage";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      staleTime: 30_000,
+    },
+  },
+});
+
 function App() {
-  return <HandbookPage />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HandbookPage />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
