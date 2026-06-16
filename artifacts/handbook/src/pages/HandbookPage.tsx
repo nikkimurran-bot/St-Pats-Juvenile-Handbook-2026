@@ -53,7 +53,7 @@ export function HandbookPage() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  const isChecklistsPage = activeSectionId === 's6' && activeSubsectionId === '6-2';
+  const isChecklistsPage = activeSectionId === 's7';
   const isAppendicesPage = activeSectionId === 's6' && activeSubsectionId === '6-3';
 
   return (

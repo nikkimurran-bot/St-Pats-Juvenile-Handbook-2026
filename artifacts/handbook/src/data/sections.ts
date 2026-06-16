@@ -2164,33 +2164,6 @@ All keys are club property. If you are assigned a key:
 8. Pitch Allocation Spreadsheet (link via Juvenile Secretary)`
       },
       {
-        id: "6-2",
-        number: "6.2",
-        title: "Mentor Checklists",
-        content: `## Mentor Checklists
-
-The best coaching groups are organised, consistent, and positive.
-
-These checklists are designed to help mentors stay prepared, reduce stress, and create the best possible experience for players. All progress is saved automatically on this device.
-
-### The 10 Mentor Checklists
-
-| # | Checklist | When to Use |
-|---|-----------|-------------|
-| 1 | **Mandatory Mentor Compliance** | Before any mentor is active with a team |
-| 2 | **Pre-Season Planning** | At the start of each season |
-| 3 | **Start-of-Season Coaching** | First weeks of the season |
-| 4 | **Term / Block Planning** | Every 6–8 weeks |
-| 5 | **Weekly Coaching Session** | Before/during/after each training session |
-| 6 | **Matchday Preparation** | Before/during/after each fixture |
-| 7 | **Referee & Fixture** | Each weekly fixture |
-| 8 | **Safeguarding & Welfare** | Ongoing throughout season |
-| 9 | **Equipment & Facilities** | Regular equipment check |
-| 10 | **End-of-Season** | At the end of each season |
-
-Click **"Checklists"** in the navigation to use the interactive checklists with checkboxes and progress tracking.`
-      },
-      {
         id: "6-3",
         number: "6.3",
         title: "Appendices",
@@ -2213,6 +2186,42 @@ Each appendix is referenced throughout this handbook where relevant. Click any d
 | Planning & Templates | Session planners, annual calendars, parent meeting template, six-week blocks |
 
 Use the **Appendices** tab in the navigation to browse all 38 documents.`
+      }
+    ]
+  },
+  {
+    id: "s7",
+    number: "7",
+    title: "Mentor Checklists",
+    icon: "📋",
+    subsections: [
+      {
+        id: "7-1",
+        number: "7.1",
+        title: "Mentor Checklists",
+        content: `## Mentor Checklists
+
+The best coaching groups are organised, consistent, and positive.
+
+These checklists are designed to help mentors stay prepared, reduce stress, and create the best possible experience for players. All progress is saved automatically on this device.
+
+### The 11 Mentor Checklists
+
+| # | Checklist | When to Use |
+|---|-----------|-------------|
+| 1 | **Mandatory Mentor Compliance** | Before any mentor is active with a team |
+| 2 | **Pre-Season Planning** | At the start of each season |
+| 3 | **Start-of-Season Coaching** | First weeks of the season |
+| 4 | **Term / Block Planning** | Every 6–8 weeks |
+| 5 | **Weekly Coaching Session** | Before/during/after each training session |
+| 6 | **Matchday Preparation** | Before/during/after each fixture |
+| 7 | **Referee & Fixture** | Each weekly fixture |
+| 8 | **Safeguarding & Welfare** | Ongoing throughout season |
+| 9 | **Equipment & Facilities** | Regular equipment check |
+| 10 | **End-of-Season** | At the end of each season |
+| 11 | **Féile Preparation** | When preparing for Féile na nGael |
+
+Use the interactive checklists below with checkboxes and progress tracking.`
       }
     ]
   }

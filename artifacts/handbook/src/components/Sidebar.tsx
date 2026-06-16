@@ -18,7 +18,8 @@ const NAV_ICONS: Record<string, string> = {
   "s3": "⚽",
   "s4": "🏆",
   "s5": "🌿",
-  "s6": "📚"
+  "s6": "📚",
+  "s7": "📋"
 };
 
 export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobile, onClose }: Props) {
@@ -38,7 +39,7 @@ export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobil
     }
   };
 
-  const checklistsActive = activeSectionId === 's6' && activeSubsectionId === '6-2';
+  const checklistsActive = activeSectionId === 's7';
 
   return (
     <nav
@@ -56,7 +57,7 @@ export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobil
       <div className="px-3 pt-3 pb-1 flex-shrink-0">
         <button
           data-testid="nav-checklists-tab"
-          onClick={() => handleNav('s6', '6-2')}
+          onClick={() => { setExpandedSection('s7'); handleNav('s7', '7-1'); }}
           className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition-all ${
             checklistsActive
               ? 'bg-secondary shadow-md'
@@ -116,7 +117,7 @@ export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobil
                   {section.subsections.map(sub => {
                     const subIsActive = sub.id === activeSubsectionId;
 
-                    if (isSpecial && sub.id === '6-2') {
+                    if (section.id === 's7') {
                       return (
                         <button
                           key={sub.id}
