@@ -7,7 +7,11 @@ function useFileAvailable(path: string): boolean | null {
   useEffect(() => {
     let cancelled = false;
     fetch(path, { method: "HEAD" })
-      .then(res => { if (!cancelled) setAvailable(res.ok); })
+      .then(res => {
+        const ct = res.headers.get("content-type") ?? "";
+        const isPdf = res.ok && (ct.includes("pdf") || ct.includes("octet-stream"));
+        if (!cancelled) setAvailable(isPdf);
+      })
       .catch(() => { if (!cancelled) setAvailable(false); });
     return () => { cancelled = true; };
   }, [path]);

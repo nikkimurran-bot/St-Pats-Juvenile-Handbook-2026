@@ -13,7 +13,7 @@ export function HandbookPage() {
   const [activeSubsectionId, setActiveSubsectionId] = useState(sections[0].subsections[0].id);
   const [highlightQuery, setHighlightQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const activeSection = sections.find(s => s.id === activeSectionId) ?? sections[0];
   const activeSubsection = activeSection.subsections.find(s => s.id === activeSubsectionId) ?? activeSection.subsections[0];
@@ -23,7 +23,6 @@ export function HandbookPage() {
     setActiveSubsectionId(subsectionId);
     setHighlightQuery(highlight ?? "");
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setMobileMenuOpen(false);
   }, []);
 
   // Clear highlight when navigating without search
@@ -61,24 +60,24 @@ export function HandbookPage() {
     <div className="min-h-screen bg-background">
       <Header
         onSearch={() => setSearchOpen(true)}
-        onMenuToggle={() => setMobileMenuOpen(v => !v)}
-        menuOpen={mobileMenuOpen}
+        onMenuToggle={() => setSidebarOpen(v => !v)}
+        menuOpen={sidebarOpen}
       />
 
-      {/* Mobile sidebar overlay */}
-      {mobileMenuOpen && (
+      {/* Mobile sidebar overlay (small screens: full overlay) */}
+      {sidebarOpen && (
         <div className="lg:hidden fixed inset-0 z-40 flex">
           <div
             className="absolute inset-0 bg-black/50"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => setSidebarOpen(false)}
           />
           <div className="relative w-72 flex-shrink-0 h-full shadow-2xl">
             <Sidebar
               activeSectionId={activeSectionId}
               activeSubsectionId={activeSubsectionId}
-              onNavigate={navigatePlain}
+              onNavigate={(s, sub) => { navigatePlain(s, sub); setSidebarOpen(false); }}
               mobile
-              onClose={() => setMobileMenuOpen(false)}
+              onClose={() => setSidebarOpen(false)}
             />
           </div>
         </div>
@@ -86,21 +85,23 @@ export function HandbookPage() {
 
       {/* Layout */}
       <div className="flex h-screen pt-16">
-        {/* Desktop sidebar */}
-        <aside className="hidden lg:flex w-64 xl:w-72 flex-shrink-0 fixed left-0 top-16 bottom-0 z-30">
-          <div className="w-full h-full">
-            <Sidebar
-              activeSectionId={activeSectionId}
-              activeSubsectionId={activeSubsectionId}
-              onNavigate={navigatePlain}
-            />
-          </div>
-        </aside>
+        {/* Desktop sidebar (toggleable) */}
+        {sidebarOpen && (
+          <aside className="hidden lg:flex w-64 xl:w-72 flex-shrink-0 fixed left-0 top-16 bottom-0 z-30">
+            <div className="w-full h-full">
+              <Sidebar
+                activeSectionId={activeSectionId}
+                activeSubsectionId={activeSubsectionId}
+                onNavigate={navigatePlain}
+              />
+            </div>
+          </aside>
+        )}
 
         {/* Main content */}
         <main
           data-testid="main-content"
-          className="flex-1 min-w-0 overflow-y-auto lg:ml-64 xl:ml-72"
+          className={`flex-1 min-w-0 overflow-y-auto transition-all ${sidebarOpen ? 'lg:ml-64 xl:ml-72' : ''}`}
         >
           {/* Breadcrumb */}
           <div className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-border px-6 py-2.5 flex items-center gap-2 text-xs text-muted-foreground">

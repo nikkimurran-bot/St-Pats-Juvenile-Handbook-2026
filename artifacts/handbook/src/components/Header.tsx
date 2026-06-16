@@ -10,11 +10,11 @@ export function Header({ onSearch, onMenuToggle, menuOpen }: Props) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary text-primary-foreground shadow-lg">
       <div className="flex items-center gap-3 px-4 h-16">
-        {/* Mobile menu toggle */}
+        {/* Menu toggle (mobile + desktop) */}
         <button
           data-testid="menu-toggle"
           onClick={onMenuToggle}
-          className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-white/10 transition-colors"
+          className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-white/10 transition-colors"
           aria-label="Toggle navigation"
         >
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
