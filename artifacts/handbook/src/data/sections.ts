@@ -1653,31 +1653,64 @@ Planning must begin **at least 9 months in advance**. Key areas:
       {
         id: "4-14",
         number: "4.14",
-        title: "Fulfilment of Fixtures",
-        content: `## Fulfilment of Fixtures
+        title: "Féile Checklist for Mentors",
+        content: `## Féile Checklist for Mentors
 
-### Why It Matters
+Planning for Féile is complex and benefits from a structured approach. The full **interactive Féile checklist** is available in the Mentor Checklists section of this handbook (Checklist #11 — *U15 Féile Planning & Matchday*).
 
-Fulfilling fixtures respects opponents, referees, county boards, and your own players. Chronic late withdrawals damage player trust, opponent preparation, and club reputation.
+The checklist covers nine planning stages:
 
-### Expectations
+| # | Stage | Typical Timing |
+|---|-------|---------------|
+| 1 | **Féile Preparation Timeline** | Season-wide overview |
+| 2 | **Administration & Compliance** | 12–14 weeks before |
+| 3 | **Féile Planning** | 6–8 weeks before |
+| 4 | **Parent Communication** | 6–8 weeks before |
+| 5 | **Logistics & Operations** | Ongoing |
+| 6 | **Player Welfare & Safety** | Ongoing |
+| 7 | **Final Week Preparation** | 1 week before |
+| 8 | **Féile Matchday** | Matchday |
+| 9 | **Post-Féile Review** | After the event |
 
-- Confirm availability **early in the week** — not on match day
-- Escalate likely issues immediately rather than at the last minute
-- If a fixture cannot be fulfilled, notify the **club and opposition** at the earliest realistic opportunity
-- Chronic late withdrawals are unacceptable and reflect poorly on the club
+### Key Planning Areas
 
-### Process for Non-Fulfilment
+**Administration & Compliance (12–14 Weeks Before)**
+- Confirm the coaching team, roles, and First Aid cover
+- Verify all player eligibility and registration
+- Nominate official photographer; confirm social media permissions
+- Finalise fundraising and gear order
 
-Where a game is not played or postponed, the **Home Mentor** must email the relevant body:
+**Parent Communication**
+- Hold a Féile parent meeting early — cover format, travel, fundraising, sideline behaviour, and volunteers
+- Establish a clear communication channel for the Féile weekend
 
-| Code | Contact |
-|------|---------|
-| GAA Football / Hurling | juvresults@dublingaa.ie |
-| Camogie | gogames.dublin@camogie.ie |
-| LGFA | smallsidedgamesdlgfa@gmail.com |
+**Logistics & Operations**
+- Confirm fixtures, venues, throw-in times, and referee arrangements
+- Organise transport and itinerary with contingency time
+- Pack: jerseys, match balls/sliotars, bibs, cones, water, first aid kit, ice packs, coaches' bibs, team sheets
 
-The email should clearly outline the reason the fixture did not take place.`
+**Player Welfare & Safety**
+- Confirm first aid cover and nearest AED location
+- Ensure no player is left unsupervised at any time
+- All photographs through the official photographer and approved club channels only
+
+**Final Week**
+- Reduce training volume, maintain intensity
+- Confirm player availability, jersey numbering, and roles
+- Finalise the matchday timetable
+
+**Matchday**
+- Arrive early; set up team base and warm-up area
+- Meet referee; complete team sheets
+- Positive sideline behaviour throughout
+- Account for all players; return equipment; update parents
+
+**Post-Féile**
+- Hold a mentor review meeting
+- Document lessons learned and share with the Juvenile Committee
+- Celebrate player effort and achievement
+
+> See also: **Appendix 10** (Féile Rules 2025), **Appendix 11** (Féile Checklist — printable), **Appendix 18** (John West Féile Charter 2025)`
       },
       {
         id: "4-15",
