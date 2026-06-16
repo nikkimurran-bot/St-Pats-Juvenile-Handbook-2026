@@ -13,12 +13,52 @@ export function ChecklistsPage() {
     return cl?.sections.flatMap(s => s.items.map(i => i.id)) ?? [];
   };
 
-  const handlePrint = () => {
+  const handlePrintAll = () => {
     setPrintMode(true);
     setTimeout(() => {
       window.print();
       setPrintMode(false);
     }, 250);
+  };
+
+  const handlePrintSingle = (checklistId: string) => {
+    const cl = checklists.find(c => c.id === checklistId);
+    if (!cl) return;
+
+    const lines: string[] = [];
+    cl.sections.forEach(sec => {
+      lines.push(`<h3 style="font-size:13px;font-weight:600;margin:14px 0 6px;color:#333;">${sec.title}</h3>`);
+      sec.items.forEach(item => {
+        const done = !!checked[item.id];
+        const box = done
+          ? `<span style="display:inline-block;width:14px;height:14px;border:1.5px solid #333;background:#333;margin-right:8px;vertical-align:middle;flex-shrink:0;"></span>`
+          : `<span style="display:inline-block;width:14px;height:14px;border:1.5px solid #aaa;margin-right:8px;vertical-align:middle;flex-shrink:0;"></span>`;
+        lines.push(
+          `<div style="display:flex;align-items:flex-start;margin-bottom:5px;">` +
+          `${box}<span style="font-size:12px;color:#111;${done ? 'text-decoration:line-through;color:#888;' : ''}">${item.text}</span></div>`
+        );
+      });
+    });
+
+    const html = `<!DOCTYPE html><html><head><title>${cl.title}</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 24px 32px; color: #111; }
+  h1 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+  p { font-size: 11px; color: #666; margin: 0 0 16px; }
+  @media print { body { margin: 16px 24px; } }
+</style>
+</head><body>
+<h1>Checklist ${cl.number}: ${cl.title}</h1>
+<p>St Pats Donabate GAA — Juvenile Handbook 2026 &nbsp;|&nbsp; ${cl.description}</p>
+${lines.join('\n')}
+<script>window.onload = function(){ window.print(); window.close(); }</script>
+</body></html>`;
+
+    const w = window.open('', '_blank', 'width=700,height=900');
+    if (w) {
+      w.document.write(html);
+      w.document.close();
+    }
   };
 
   return (
@@ -30,26 +70,26 @@ export function ChecklistsPage() {
             Mentor Checklists
           </h1>
           <p className="text-muted-foreground text-sm">
-            10 interactive checklists to help you stay prepared throughout the season. Progress is saved automatically on this device.
+            11 interactive checklists to help you stay prepared throughout the season. Progress is saved automatically on this device.
           </p>
         </div>
         <button
-          onClick={handlePrint}
+          onClick={handlePrintAll}
           className="no-print flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm"
         >
           <Printer size={15} />
-          Print
+          Print All
         </button>
       </div>
 
-      {/* Print header (only shows when printing) */}
+      {/* Print header (only shows when printing all) */}
       <div className="hidden print:block mb-8">
         <h1 className="text-2xl font-bold text-black">St Pats Donabate GAA — Mentor Checklists 2026</h1>
         <p className="text-sm text-gray-600 mt-1">Printed from the St Pats Juvenile Handbook 2026</p>
       </div>
 
       {/* Summary cards */}
-      <div className="no-print grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
+      <div className="no-print grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
         {checklists.map(cl => {
           const ids = allItemIds(cl.id);
           const { done, total, pct } = getProgress(ids);
@@ -125,6 +165,14 @@ export function ChecklistsPage() {
                       <RotateCcw size={14} />
                     </button>
                   )}
+                  <button
+                    data-testid={`print-checklist-${cl.id}`}
+                    onClick={e => { e.stopPropagation(); handlePrintSingle(cl.id); }}
+                    className="p-1.5 rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary transition-colors"
+                    title="Print this checklist"
+                  >
+                    <Printer size={14} />
+                  </button>
                   {isOpen
                     ? <ChevronUp size={18} className="text-muted-foreground" />
                     : <ChevronDown size={18} className="text-muted-foreground" />

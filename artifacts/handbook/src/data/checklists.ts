@@ -415,5 +415,175 @@ export const checklists: Checklist[] = [
         ]
       }
     ]
+  },
+  {
+    id: "checklist-11",
+    number: 11,
+    title: "U15 Féile Planning & Matchday",
+    description: "Full planning and matchday guide for mentors organising or participating in Féile na nGael / Féile Peil na nÓg.",
+    sections: [
+      {
+        title: "Féile Preparation Timeline",
+        items: [
+          { id: "11-p-1", text: "Host fundraiser(s)" },
+          { id: "11-p-2", text: "Order Féile gear (10–12 weeks before)" },
+          { id: "11-p-3", text: "Submit Féile panel(s)" },
+          { id: "11-p-4", text: "Participate in grading games" },
+          { id: "11-p-5", text: "Confirm hosting arrangements" },
+          { id: "11-p-6", text: "Coordinate Féile communications" },
+          { id: "11-p-7", text: "Finalise matchday logistics" }
+        ]
+      },
+      {
+        title: "Administration & Compliance (12–14 Weeks Before)",
+        items: [
+          { id: "11-a-1", text: "Confirm Lead Mentor and coaching team roles" },
+          { id: "11-a-2", text: "Ensure at least one qualified First Aider is available" },
+          { id: "11-a-3", text: "Review Féile regulations with all mentors" },
+          { id: "11-a-4", text: "Nominate official club photographer" },
+          { id: "11-a-5", text: "Confirm player eligibility" },
+          { id: "11-a-6", text: "Verify all players are registered members" },
+          { id: "11-a-7", text: "Update emergency contacts" },
+          { id: "11-a-8", text: "Confirm medical conditions / allergies" },
+          { id: "11-a-9", text: "Confirm social media permissions" },
+          { id: "11-a-10", text: "Finalise fundraising plans" },
+          { id: "11-a-11", text: "Confirm available budget" },
+          { id: "11-a-12", text: "Obtain supplier quotations" },
+          { id: "11-a-13", text: "Confirm player sizing" },
+          { id: "11-a-14", text: "Place gear order" },
+          { id: "11-a-15", text: "Organise gear presentation day" },
+          { id: "11-a-16", text: "Take team and individual photographs" }
+        ]
+      },
+      {
+        title: "Féile Planning (6–8 Weeks Before)",
+        items: [
+          { id: "11-fp-1", text: "Finalise Féile panel" },
+          { id: "11-fp-2", text: "Review regulations regarding players playing up" },
+          { id: "11-fp-3", text: "Establish substitution strategy" },
+          { id: "11-fp-4", text: "Identify leadership group / captains" },
+          { id: "11-fp-5", text: "Agree team goals and objectives" }
+        ]
+      },
+      {
+        title: "Parent Communication",
+        items: [
+          { id: "11-pc-1", text: "Hold Féile parent meeting" },
+          { id: "11-pc-2", text: "Explain competition format" },
+          { id: "11-pc-3", text: "Explain fundraising requirements" },
+          { id: "11-pc-4", text: "Explain travel arrangements" },
+          { id: "11-pc-5", text: "Confirm attendance expectations" },
+          { id: "11-pc-6", text: "Outline sideline behaviour expectations" },
+          { id: "11-pc-7", text: "Organise volunteers" },
+          { id: "11-pc-8", text: "Establish communication channel for Féile weekend" }
+        ]
+      },
+      {
+        title: "Logistics & Operations",
+        items: [
+          { id: "11-l-1", text: "Confirm fixtures" },
+          { id: "11-l-2", text: "Confirm venues" },
+          { id: "11-l-3", text: "Confirm throw-in times" },
+          { id: "11-l-4", text: "Share fixture details with parents" },
+          { id: "11-l-5", text: "Confirm referee arrangements" },
+          { id: "11-l-6", text: "Prepare travel itinerary" },
+          { id: "11-l-7", text: "Organise transport" },
+          { id: "11-l-8", text: "Build in contingency time" },
+          { id: "11-l-9", text: "Match jerseys" },
+          { id: "11-l-10", text: "Spare jerseys" },
+          { id: "11-l-11", text: "Match balls / sliotars" },
+          { id: "11-l-12", text: "Bibs" },
+          { id: "11-l-13", text: "Cones" },
+          { id: "11-l-14", text: "Water carriers" },
+          { id: "11-l-15", text: "First aid kit" },
+          { id: "11-l-16", text: "Ice packs" },
+          { id: "11-l-17", text: "Coaches bibs" },
+          { id: "11-l-18", text: "Team sheets" },
+          { id: "11-l-19", text: "Tent / Pavilion if required" }
+        ]
+      },
+      {
+        title: "Player Welfare & Safety",
+        items: [
+          { id: "11-w-1", text: "Confirm first aid cover" },
+          { id: "11-w-2", text: "Review concussion procedures" },
+          { id: "11-w-3", text: "Review emergency procedures" },
+          { id: "11-w-4", text: "Identify nearest AED" },
+          { id: "11-w-5", text: "Confirm supervision ratios" },
+          { id: "11-w-6", text: "Ensure no player is left unsupervised" },
+          { id: "11-w-7", text: "Confirm hydration plan" },
+          { id: "11-w-8", text: "Encourage appropriate nutrition" },
+          { id: "11-w-9", text: "Monitor training load in lead-up" },
+          { id: "11-w-10", text: "Confirm official photographer" },
+          { id: "11-w-11", text: "Confirm social media permissions" },
+          { id: "11-w-12", text: "Remind mentors that coaching staff should not take photographs during games" },
+          { id: "11-w-13", text: "Ensure all photographs comply with club safeguarding policy" },
+          { id: "11-w-14", text: "Share photographs through approved club channels only" }
+        ]
+      },
+      {
+        title: "Final Week Preparation",
+        items: [
+          { id: "11-fw-1", text: "Reduce overall training volume" },
+          { id: "11-fw-2", text: "Maintain intensity" },
+          { id: "11-fw-3", text: "Practice restarts and set plays" },
+          { id: "11-fw-4", text: "Practice penalties if relevant" },
+          { id: "11-fw-5", text: "Reinforce team principles" },
+          { id: "11-fw-6", text: "Focus on confidence and enjoyment" },
+          { id: "11-fw-7", text: "Confirm player availability" },
+          { id: "11-fw-8", text: "Confirm jersey numbering" },
+          { id: "11-fw-9", text: "Confirm player roles" },
+          { id: "11-fw-10", text: "Review opposition if known" },
+          { id: "11-fw-11", text: "Finalise matchday timetable" }
+        ]
+      },
+      {
+        title: "Féile Matchday",
+        items: [
+          { id: "11-m-1", text: "Team sheets completed" },
+          { id: "11-m-2", text: "First aid kit packed" },
+          { id: "11-m-3", text: "Ice packs packed" },
+          { id: "11-m-4", text: "Match balls packed" },
+          { id: "11-m-5", text: "Jerseys packed" },
+          { id: "11-m-6", text: "Water available" },
+          { id: "11-m-7", text: "Emergency contacts accessible" },
+          { id: "11-m-8", text: "Arrive early" },
+          { id: "11-m-9", text: "Set up team base area" },
+          { id: "11-m-10", text: "Set up warm-up area" },
+          { id: "11-m-11", text: "Meet referee" },
+          { id: "11-m-12", text: "Confirm dressing room arrangements" },
+          { id: "11-m-13", text: "Complete structured warm-up" },
+          { id: "11-m-14", text: "Positive sideline behaviour" },
+          { id: "11-m-15", text: "Manage substitutions" },
+          { id: "11-m-16", text: "Monitor injuries and fatigue" },
+          { id: "11-m-17", text: "Hydration" },
+          { id: "11-m-18", text: "Nutrition / snacks" },
+          { id: "11-m-19", text: "Recovery walk / stretch" },
+          { id: "11-m-20", text: "Review key learnings" },
+          { id: "11-m-21", text: "Keep players positive and relaxed" },
+          { id: "11-m-22", text: "Thank referees" },
+          { id: "11-m-23", text: "Thank opposition" },
+          { id: "11-m-24", text: "Account for all players" },
+          { id: "11-m-25", text: "Return equipment" },
+          { id: "11-m-26", text: "Record injuries" },
+          { id: "11-m-27", text: "Update parents" },
+          { id: "11-m-28", text: "Hold post-Féile team gathering" }
+        ]
+      },
+      {
+        title: "Post-Féile Review",
+        items: [
+          { id: "11-r-1", text: "Hold mentor review meeting" },
+          { id: "11-r-2", text: "Review player development outcomes" },
+          { id: "11-r-3", text: "Gather player feedback" },
+          { id: "11-r-4", text: "Gather parent feedback" },
+          { id: "11-r-5", text: "Recognise volunteers" },
+          { id: "11-r-6", text: "Celebrate player effort and achievement" },
+          { id: "11-r-7", text: "Update player development notes" },
+          { id: "11-r-8", text: "Document lessons learned" },
+          { id: "11-r-9", text: "Share learnings with Juvenile Committee" }
+        ]
+      }
+    ]
   }
 ];

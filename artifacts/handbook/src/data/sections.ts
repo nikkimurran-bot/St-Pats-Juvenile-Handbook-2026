@@ -550,30 +550,47 @@ Bag packing opportunities may become available periodically. Speak to your coord
       {
         id: "2-11",
         number: "2.11",
-        title: "First Aid Training",
-        content: `## First Aid Training
+        title: "First Aid Training / AED Locations",
+        content: `## First Aid Training / AED Locations
 
-### Requirements
+### AED Locations
 
-All mentors are **strongly encouraged** to hold a current First Aid / CPR certification. This is listed as a recommended (not yet mandatory) qualification in the Mentor Compliance Checklist.
+There are **two AEDs** on location at St Pats:
 
-### First Aid Kit
+- **AED 1** — Located in the clubhouse, **to the right of the kitchen door** as you enter.
+- **AED 2** — Located in the gym. It is contained in a **large white box to the left as you enter the gym**.
 
-Every team must have access to a properly stocked first aid kit at **all training sessions and matches**. The kit should include:
-- Antiseptic wipes and plasters
-- Bandages and dressings
-- Ice packs
-- Emergency contact list
-- Incident report forms
+All mentors should familiarise themselves with both AED locations before the season begins.
+
+### First Aid Training
+
+First Aid training can be organised through:
+
+**Fingal County Council Sports Office**
+- Jamie Clowry | Sport Development Officer
+- Mobile: 087-2846596
+- Email: Jamie.Clowry@fingal.ie
+
+**Or directly through first aid trainer:**
+- Brian Pentony — Email: pentonyb@gmail.com | Phone: 087-2291838
+
+### First Aid Policy
+
+- Each team should, wherever possible, have **at least one mentor with a valid accredited First Aid qualification** in line with GAA best practice guidelines.
+- First Aid certification should be renewed every two years, with responsibility on the individual mentor to ensure qualifications remain in date.
+- The club will aim to provide a minimum of two First Aid training opportunities per year for coaches and mentors.
+- As a long-term objective, the club will work towards having accredited First Aid cover at a ratio of **one qualified adult per 15 players** where possible.
 
 ### Emergency Procedure
 
 If a serious injury occurs:
-1. Call emergency services immediately: **999 or 112**
-2. Do not move a player who may have a spinal or neck injury
-3. Administer basic first aid if trained and safe to do so
-4. Contact the parent / guardian immediately
-5. Inform the Children's Officer and Juvenile Chairperson
+1. **Make the area safe** before approaching.
+2. **Check response and breathing.**
+3. **Send for help. Call 112 / 999.**
+4. Treat the most serious issue first.
+5. Reassure casualty and monitor.
+
+Do not move a player who may have a spinal or neck injury.
 
 ### Concussion Protocol
 
@@ -584,9 +601,9 @@ Any player suspected of concussion must:
 - Not return to play on the same day
 - Not return until medically cleared following the graduated return-to-play protocol (minimum 2 weeks)
 
-### First Aid Training Opportunities
+### Club Injury Policy
 
-Fingal County Council Sports Office periodically offers First Aid workshops for sports clubs. The Juvenile Committee will circulate information on available training opportunities.`
+See the [St Pats Injury Procedure & Physio Policy](https://www.stpatsgaa.com/pages/injury-procedure-physio-policy) for full details.`
       },
       {
         id: "2-12",
@@ -594,22 +611,25 @@ Fingal County Council Sports Office periodically offers First Aid workshops for 
         title: "Player Injury Schemes & Reporting",
         content: `## Player Injury Schemes & Injury Reporting
 
-### GAA Injury Fund
+The player injury schemes across the GAA, LGFA and Camogie Association are **support schemes, not full insurance policies**. Parents and guardians should understand that these schemes are designed to supplement private health insurance and do not automatically cover all medical expenses. Where players have private medical insurance (such as VHI, Laya or Aviva), claims should first be submitted through those providers before any application is made through the relevant Gaelic Games injury scheme.
 
-The GAA operates an injury benefit fund for registered members. All players and mentors who are fully registered with the club are eligible.
+St Pats Donabate is not in a position to cover medical or treatment expenses outside the terms of the relevant injury schemes.
 
-**Claims Process:**
-1. Medical treatment sought promptly
-2. Incident reported to club (Lead Mentor → Juvenile Committee)
-3. Claim form submitted through the Club Secretary
-4. Medical receipts and documentation submitted with the claim
-5. Club Secretary submits to the County Board
+### GAA Injury Benefit Fund
 
-**Key Points:**
-- Only registered, paid-up members are eligible
-- Claims must be submitted promptly — delays may invalidate claims
-- The fund covers defined categories of injury — not all medical costs
-- Contact the Club Secretary for claim forms and guidance
+> **Important change from 1 June 2025:** The GAA injury claims process has changed. The injured player, or a parent/guardian for an underage player, must now **log the injury directly on Foireann**. It is no longer primarily managed by the club injury officer.
+
+All injuries which may require treatment should be reported promptly through the appropriate code process and also communicated to the club. Mentors should ensure that any significant match injury is brought to the **referee's attention for inclusion in the official match report** where applicable.
+
+### LGFA Injury Fund
+
+For LGFA injuries, the **initial claim form must be submitted within 8 weeks** of the injury occurring or the claim may not be covered under the scheme.
+
+### Useful Links
+
+- [GAA Injury Benefit Fund](https://www.gaa.ie)
+- [LGFA Injury Fund Information](https://www.lgfa.ie)
+- [St Pats Injury Procedure & Physio Policy](https://www.stpatsgaa.com/pages/injury-procedure-physio-policy)
 
 ### Injury Reporting
 
@@ -1416,9 +1436,11 @@ Referees are essential volunteers within Gaelic Games. The standard the Club set
 
 Naomh Pádraig Donabate is committed to creating an environment where referees — including juvenile referees — feel valued, respected, and supported.
 
+The Club expects all members to support referees and respect their decisions at all times in line with the principles promoted by the GAA, LGFA and Camogie Association.
+
 ### Before the Match
 
-For Go Games, the Lead Mentor is encouraged to **brief the referee before throw-in**. Once the game commences, no further communication with the referee should take place — this applies to all mentors on both sides.
+For Go Games, the Lead Mentor is encouraged to **brief the referee before throw-in**. Once the game commences, **no further communication with the referee should take place** — this applies to all mentors on both sides and should be communicated to all mentors prior to throw-in.
 
 ### Match Day Standards
 
@@ -1426,6 +1448,7 @@ For Go Games, the Lead Mentor is encouraged to **brief the referee before throw-
 - Prepare referee fee where applicable
 - Mentors wear bibs and remain in designated sideline areas
 - **Abuse, intimidation, sarcasm, or persistent questioning of referees is not acceptable under any circumstances**
+- Sideline behaviour should always reflect the Club values of respect, inclusion and sportsmanship
 - Any concerns about refereeing must be raised through appropriate channels — never through confrontation on match day
 
 ### Referee Appointments
@@ -1443,7 +1466,47 @@ The **home team** is responsible for:
 - Confirming venue, throw-in time, and pitch details
 - Notifying the referee immediately of any changes or cancellations
 
-Failure to notify the referee of changes may result in referee fees still being payable.`
+Failure to notify the referee of changes may result in referee fees still being payable.
+
+---
+
+## St Pats Policy on Mentor Interactions with Underage Referees
+
+Creating pathways for young people to participate in our games extends beyond playing — it includes affording them developmental opportunities such as training to become referees.
+
+All underage referees undertake an approved certified programme which ensures their knowledge of strict guidelines for refereeing underage matches. It also promotes impartiality, safeguarding of young players, constructive communication, and upholding of the "Give Respect – Get Respect" initiative.
+
+### One Named Mentor Rule (CCC1 & CCC2)
+
+**St Pats policy for underage matches (CCC1 & CCC2):**
+
+> The **lead mentor or their nominated mentor** for the given match is the **only mentor** permitted to engage directly with the referee, unless there is a player safety issue.
+
+This allows the referee to focus on the match, other mentors to support their team, and prevents distraction of juvenile players. All mentors are required to wear bibs at matches so that the referee can clearly identify who is a mentor.
+
+- Engagement between referees and mentors should be **minimal at half-time** and only where there is a player safety issue.
+- After the match, mentors are encouraged to talk constructively with underage referees — discussing decisions in a supportive way assists in building their confidence and skills.
+
+### Sanctions for Breaches
+
+| Breach | Consequence |
+|--------|-------------|
+| Unnamed mentor engages with the referee | 4-week suspension from attending matches as a team mentor |
+| Recurrent breach | Potential permanent ban from attending juvenile matches as a mentor for that team |
+| Misconduct (abuse from coaches, parents, or players) | Reported to Referee Coordinator, Juvenile Chair, or Children's Officer; may be referred to formal Code of Behaviour Hearings |
+
+Where a mentor is suspended, all other team mentors are expected to support adherence to this policy and model good behaviour for players and underage referees.
+
+### Matchday Responsibilities Summary
+
+| Action | Responsible |
+|--------|-------------|
+| Referee arrives 10 minutes before match; meets both teams' mentors | Underage Referee |
+| All mentors identified with bibs | Team Mentors |
+| Lead mentor or nominated lead identified to referee before game | Team Lead / Nominated Mentor |
+| After match: constructive discussion with referee on decisions | Team Lead / Nominated Mentor & Referee |
+| Breach of one-named-mentor policy reported | Referee Coordinator |
+| Mentor advised of suspension | Juvenile Chair / Children's Officer |`
       },
       {
         id: "4-10",
