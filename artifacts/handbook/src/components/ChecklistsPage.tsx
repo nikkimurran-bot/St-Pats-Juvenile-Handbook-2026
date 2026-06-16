@@ -51,13 +51,21 @@ export function ChecklistsPage() {
 <h1>Checklist ${cl.number}: ${cl.title}</h1>
 <p>St Pats Donabate GAA — Juvenile Handbook 2026 &nbsp;|&nbsp; ${cl.description}</p>
 ${lines.join('\n')}
-<script>window.onload = function(){ window.print(); window.close(); }</script>
 </body></html>`;
 
-    const w = window.open('', '_blank', 'width=700,height=900');
-    if (w) {
-      w.document.write(html);
-      w.document.close();
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:none;';
+    document.body.appendChild(iframe);
+    const doc = iframe.contentWindow?.document;
+    if (doc) {
+      doc.open();
+      doc.write(html);
+      doc.close();
+      iframe.contentWindow?.focus();
+      setTimeout(() => {
+        iframe.contentWindow?.print();
+        setTimeout(() => document.body.removeChild(iframe), 1000);
+      }, 250);
     }
   };
 
