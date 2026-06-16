@@ -132,9 +132,12 @@ ${lines.join('\n')}
               className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden print:shadow-none print:border-gray-300 print:rounded-none print:mb-4 print:break-inside-avoid"
             >
               {/* Checklist header */}
-              <button
+              <div
+                role="button"
+                tabIndex={0}
                 onClick={() => !printMode && setExpanded(isOpen && !printMode ? null : cl.id)}
-                className="w-full flex items-center gap-4 p-5 text-left hover:bg-muted/30 transition-colors print:cursor-default print:hover:bg-transparent"
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); !printMode && setExpanded(isOpen && !printMode ? null : cl.id); } }}
+                className="w-full flex items-center gap-4 p-5 text-left hover:bg-muted/30 transition-colors cursor-pointer print:cursor-default print:hover:bg-transparent select-none"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 print:w-8 print:h-8 print:rounded-lg">
                   <span className="text-secondary font-bold text-lg print:text-sm">{cl.number}</span>
@@ -178,7 +181,7 @@ ${lines.join('\n')}
                     : <ChevronDown size={18} className="text-muted-foreground" />
                   }
                 </div>
-              </button>
+              </div>
 
               {/* Checklist body */}
               {isOpen && (

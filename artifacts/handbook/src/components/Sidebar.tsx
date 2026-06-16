@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { sections } from "../data/sections";
 import { checklists } from "../data/checklists";
 import { appendices } from "../data/appendices";
@@ -21,9 +22,20 @@ const NAV_ICONS: Record<string, string> = {
 };
 
 export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobile, onClose }: Props) {
+  const [expandedSection, setExpandedSection] = useState<string | null>(activeSectionId);
+
   const handleNav = (sectionId: string, subsectionId: string) => {
     onNavigate(sectionId, subsectionId);
     if (mobile && onClose) onClose();
+  };
+
+  const handleSectionClick = (sectionId: string, firstSubId: string) => {
+    if (expandedSection === sectionId) {
+      setExpandedSection(null);
+    } else {
+      setExpandedSection(sectionId);
+      handleNav(sectionId, firstSubId);
+    }
   };
 
   const checklistsActive = activeSectionId === 's6' && activeSubsectionId === '6-2';
@@ -77,7 +89,7 @@ export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobil
             <div key={section.id} className="mb-1">
               <button
                 data-testid={`nav-section-${section.id}`}
-                onClick={() => handleNav(section.id, section.subsections[0].id)}
+                onClick={() => handleSectionClick(section.id, section.subsections[0].id)}
                 className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-left transition-all ${
                   isActive
                     ? 'bg-secondary/20 border-r-2 border-secondary'
@@ -95,11 +107,11 @@ export function Sidebar({ activeSectionId, activeSubsectionId, onNavigate, mobil
                 </div>
                 <ChevronRight
                   size={14}
-                  className={`flex-shrink-0 transition-transform ${isActive ? 'rotate-90 text-secondary' : 'text-white/20'}`}
+                  className={`flex-shrink-0 transition-transform ${expandedSection === section.id ? 'rotate-90 text-secondary' : 'text-white/20'}`}
                 />
               </button>
 
-              {isActive && (
+              {expandedSection === section.id && (
                 <div className="pb-1">
                   {section.subsections.map(sub => {
                     const subIsActive = sub.id === activeSubsectionId;
