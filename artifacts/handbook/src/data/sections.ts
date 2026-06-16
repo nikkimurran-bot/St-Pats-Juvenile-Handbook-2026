@@ -348,7 +348,7 @@ At the start of each season, the coaching team should agree:
 - The **streaming and panel approach** — how will we manage teams and movement?
 - The **communication plan** — how will we keep parents informed?
 
-See the **Sample Annual Plan** (Appendix 27) and **Sample Annual Calendar** (Appendix 26) for templates.
+See the **Sample Annual Plan** (Appendix 28) and **Sample Annual Calendar** (Appendix 27) for templates.
 
 ### Session Planning
 
@@ -359,7 +359,7 @@ Every training session should be planned in advance. A good session plan include
 - **Conditioned game** — a game that reinforces the session theme
 - **Cool-down** — finish positively
 
-See the **Session Planner** (Appendix 29) and **Session Breakdown Template** (Appendix 28) for templates.
+See the **Session Planner** (Appendix 30) and **Session Breakdown Template** (Appendix 29) for templates.
 
 ### Review Points
 
@@ -457,15 +457,15 @@ Beyond the mandatory requirements:
 
 - **LTAD Cheat Sheet** (Appendix 23) — quick reference for age-appropriate development
 - **Go Games Activities Guidebook** (Appendix 15) — session activities for Go Games groups
-- **Coaching Core Skills Workshop** (Appendix 33) — St Pats football skills framework
-- **Session Planners** (Appendices 28–32) — templates for session preparation
+- **Coaching Core Skills Workshop** (Appendix 34) — St Pats football skills framework
+- **Session Planners** (Appendices 30–34) — templates for session preparation
 
 ### Player Skills Assessment
 
 Skills charts for all codes are available in the Appendices:
-- **Football & Hurling** (Appendix 36)
-- **Camogie** (Appendix 37)
-- **LGFA** (Appendix 38)
+- **Football & Hurling** (Appendix 38)
+- **Camogie** (Appendix 39)
+- **LGFA** (Appendix 40)
 
 ### Healthy Eating & Nutrition
 
@@ -680,7 +680,7 @@ The parents meeting should take place **before the first competitive fixture**, 
 - Emergency contact and medical information process
 - Team communication channels
 
-See the **Team Parent Meeting Template** (Appendix 38) for a full agenda template.`
+See the **Team Parent Meeting Template** (Appendix 41) for a full agenda template.`
       },
       {
         id: "2-14",
@@ -708,7 +708,7 @@ Planning the season in advance helps mentors stay organised, reduces stress, and
 
 ### Season Planning Template
 
-See the **Sample Annual Plan** (Appendix 27) and **Sample Annual Calendar** (Appendix 26) for editable templates.
+See the **Sample Annual Plan** (Appendix 28) and **Sample Annual Calendar** (Appendix 27) for editable templates.
 
 > Mentors should create their own version of the annual calendar at the start of each season, filling in actual fixture dates as they become available.`
       },
@@ -953,7 +953,7 @@ At Nursery level, success is measured by:
 ### Resources
 
 - **Nursery Resource Pack** (Appendix 24)
-- **Nursery Programme Mentor Summary** (Appendix 35)
+- **Nursery Programme Mentor Summary** (Appendix 37)
 
 The Academy Coordinator (Traolach O'Donnell) oversees the Nursery programme and is available to support Nursery mentors.`
       },
@@ -1707,7 +1707,7 @@ Where there is a disagreement between mentors about temporary release of a playe
 1. First refer to the **Juvenile Chairperson** for a decision
 2. If either mentor disagrees, it may be appealed to the **Club Executive**
 
-The full playing-up policy is available at: **Appendix 34** (St Pats GAA Juvenile Playing Policy — Age)
+The full playing-up policy is available at: **Appendix 35** (St Pats GAA Juvenile Playing Policy — Age)
 
 > Players should not be pressured to play up. The decision should always be made in the best interest of the child.`
       },
